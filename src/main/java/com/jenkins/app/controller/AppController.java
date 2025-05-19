@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/app")
+@RequestMapping("/api/app/")
 public class AppController {
 
-    @GetMapping
+    @GetMapping("test")
     public ResponseEntity<String> app(){
         return ResponseEntity.ok("App Working fine...!!!!");
     }
