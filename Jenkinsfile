@@ -19,6 +19,14 @@ pipeline {
                 }
             }
         }
+
+        stage("Build Docker Image") {
+            steps{
+                script{
+                    bat "docker build -t ramsingh002/spring-cicd:1.0 ."
+                }
+            }
+        }
     }
 
     post(){
