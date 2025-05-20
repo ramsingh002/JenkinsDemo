@@ -19,12 +19,6 @@ pipeline {
                 }
             }
         }
-
-        stage("Deploy to Container") {
-            steps{
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcatpwd', path: '', url: 'http://localhost:9090/')], contextPath: 'JenkinsCICD', war: '**/*.war'
-            }
-        }
     }
 
     post(){
