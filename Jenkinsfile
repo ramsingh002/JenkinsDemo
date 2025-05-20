@@ -12,6 +12,14 @@ pipeline {
             }
         }
 
+        environment{
+            APP_NAME = "spring-docker-cicd"
+            RELEASE_NUMBER = "1.0.0"
+            DOCKER_USERNAME = "ramsingh002"
+            IMAGE_NAME = "${DOCKER_USERNAME}"+"/"+"${APP_NAME}"
+            IMAGE_TAG = "${RELEASE_NUMBER}-${BUILD_NUMBER}"
+        }
+
         stage("Build Process") {
             steps{
                 script{
@@ -23,7 +31,7 @@ pipeline {
         stage("Build Docker Image") {
             steps{
                 script{
-                    bat "docker build -t ramsingh002/spring-cicd:2.0 ."
+                    bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                 }
             }
         }
@@ -31,8 +39,8 @@ pipeline {
         stage("Deploy Image to Docker Hub") {
             steps{
                 withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerpassword')]) {
-                    bat "docker login -u ramsingh002 -p ${dockerpassword}"
-                    bat "docker push ramsingh002/spring-cicd:2.0"
+                    bat "docker login -u ${DOCKER_USERNAME} -p ${dockerpassword}"
+                    bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
