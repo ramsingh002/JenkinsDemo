@@ -23,7 +23,16 @@ pipeline {
         stage("Build Docker Image") {
             steps{
                 script{
-                    bat "docker build -t ramsingh002/spring-cicd:1.0 ."
+                    bat "docker build -t ramsingh002/spring-cicd:2.0 ."
+                }
+            }
+        }
+
+        stage("Deploy Image to Docker Hub") {
+            steps{
+                withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerpassword')]) {
+                    bat "docker login -u ramsingh002 -p ${dockerpassword}"
+                    bat "docker push ramsingh002/spring-cicd:2.0"
                 }
             }
         }
