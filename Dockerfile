@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-EXPOSE 8081
+EXPOSE 8088
 
 LABEL authors="rsalliswell@gmail.com"
 
